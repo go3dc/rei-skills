@@ -1,0 +1,4 @@
+playwright
+pandas
+usaddress
+fake-useragent
