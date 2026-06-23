@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SellerLeadSheet",
+  "type": "object",
+  "properties": {
+    "contact_info": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "cell_phone": { "type": "string" },
+        "email": { "type": "string" }
+      }
+    },
+    "property_details": {
+      "type": "object",
+      "properties": {
+        "address": { "type": "string" },
+        "is_owner_occupied": { "type": "boolean" },
+        "beds": { "type": "integer" },
+        "baths": { "type": "number" },
+        "sqft": { "type": "integer" },
+        "year_built": { "type": "integer" },
+        "hoa_fees": { "type": "string" },
+        "repairs_needed": { "type": "string" }
+      }
+    },
+    "motivation_and_history": {
+      "type": "object",
+      "properties": {
+        "reason_for_selling": { "type": "string" },
+        "timeline_weeks": { "type": "string" },
+        "is_currently_listed": { "type": "boolean" },
+        "previous_list_price": { "type": "string" }
+      }
+    },
+    "financials": {
+      "type": "object",
+      "properties": {
+        "estimated_mortgage_balance": { "type": "string" },
+        "is_current_on_payments": { "type": "boolean" },
+        "months_behind": { "type": "integer" },
+        "other_liens_or_back_taxes": { "type": "string" },
+        "asking_price": { "type": "string" },
+        "price_flexibility": { "type": "string" },
+        "open_to_subject_to": { "type": "boolean" }
+      }
+    }
+  }
+}
