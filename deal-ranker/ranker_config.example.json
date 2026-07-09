@@ -1,0 +1,9 @@
+{
+    "mao_percentage": 0.70,
+    "buy_box_beds": 3,
+    "buy_box_baths": 2,
+    "buy_box_min_sqft": 1500,
+    "buy_box_min_lot_size": 0.25,
+    "modern_year_cutoff": 2000,
+    "legacy_year_cutoff": 1970
+}
