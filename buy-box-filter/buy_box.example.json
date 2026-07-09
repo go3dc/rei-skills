@@ -1,9 +1,10 @@
 {
-    "target_zip_codes": ["90210", "10001"],
+    "target_zip_codes": ["90210", "10001", "33101"],
     "max_price": 450000,
     "min_beds": 3,
     "min_baths": 2,
-    "min_sqft": 1200,
+    "min_sqft": 1500,
+    "min_lot_size": 0.25,
     "min_year_built": null,
     "property_types": ["Single Family"]
 }
