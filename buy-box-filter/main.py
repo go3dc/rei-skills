@@ -9,34 +9,33 @@ def load_buy_box():
         return json.load(f)
 
 def get_property_leads():
-    print("\n--- REI Buy Box Lead Source Selector ---")
-    print("1) Load from scraper-v1 output (Default MLS Scraper)")
-    print("2) Load from an external/custom CSV file")
-    print("3) Manually type in a single property's specs")
-    choice = input("Select an input source option (1-3): ").strip()
+    print("\n--- Buy Box Filter Intake System ---")
+    print("1) Load automatically from scraper-v1 MLS output data sheet")
+    print("2) Import custom external off-market CSV file list")
+    print("3) Manually transcribe single deal characteristics")
+    choice = input("Select property source execution method (1-3): ").strip()
 
     if choice == '1':
-        # Direct relative path fallback to look into your sibling folder layout
         path = '../scraper-v1/scraped_leads.csv'
         if not os.path.exists(path):
-            path = input("Couldn't find default file. Please paste the path to your scraper CSV: ").strip()
+            path = input("File not found. Paste path to your scraped data CSV: ").strip()
         return pd.read_csv(path).to_dict(orient='records') if os.path.exists(path) else None
 
     elif choice == '2':
-        path = input("Enter the full path to your custom CSV file: ").strip()
+        path = input("Enter path to custom lead spreadsheet: ").strip()
         return pd.read_csv(path).to_dict(orient='records') if os.path.exists(path) else None
 
     elif choice == '3':
-        print("\nEnter property specs manually:")
         return [{
-            "address": input("Address: "),
+            "address": input("Street Address: "),
             "zip_code": input("Zip Code: "),
-            "price": int(input("Price (numbers only): ") or 0),
-            "beds": int(input("Beds: ") or 0),
-            "baths": float(input("Baths: ") or 0),
-            "sqft": int(input("SqFt: ") or 0),
+            "price": int(input("Price ($): ") or 0),
+            "beds": int(input("Bedrooms count: ") or 0),
+            "baths": float(input("Bathrooms count: ") or 0),
+            "sqft": int(input("Interior Living Square Feet: ") or 0),
+            "lot_size": float(input("Lot Size in Acres (Enter to skip): ") or 0.0),
             "year_built": int(input("Year Built (Enter to skip): ") or 0),
-            "property_type": input("Property Type (e.g., Single Family): ")
+            "property_type": input("Property Classification: ")
         }]
     return None
 
@@ -45,29 +44,22 @@ def main():
     leads = get_property_leads()
     
     if not leads:
-        print("No leads loaded. Closing script.")
+        print("Execution halted: Empty lead queue matrix.")
         return
 
     qualified = []
-    disqualified_count = 0
-
     for lead in leads:
-        passed, reason = matches_buy_box(lead, buy_box)
+        passed, _ = matches_buy_box(lead, buy_box)
         if passed:
+            # Safely bind missing keys to prevent pipeline execution breaks
+            if 'lot_size' not in lead:
+                lead['lot_size'] = None
             qualified.append(lead)
-        else:
-            disqualified_count += 1
 
-    # Output Results
-    print(f"\n--- Processing Complete ---")
-    print(f"Total Evaluated: {len(leads)}")
-    print(f"✅ Qualified: {len(qualified)}")
-    print(f"❌ Disqualified: {disqualified_count}")
-
+    print(f"\nFiltering complete. Identified {len(qualified)} matching targets.")
     if qualified:
-        out_df = pd.DataFrame(qualified)
-        out_df.to_csv('qualified_deals.csv', index=False)
-        print("Saved matching leads to: buy-box-filter/qualified_deals.csv")
+        pd.DataFrame(qualified).to_csv('qualified_deals.csv', index=False)
+        print("Exported matching assets directly to: buy-box-filter/qualified_deals.csv")
 
 if __name__ == "__main__":
     main()
