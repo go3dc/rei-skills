@@ -9,7 +9,8 @@ A centralized library of automation tools, scripts, and AI agent frameworks for 
 | **[scraper-v1](scraper-v1/)** | Daily real estate listing scraper (Zillow/Redfin/Trulia/Compass). | Active |
 | **[property-comper](property-comper/)** | Automated ARV and comping engine using local market data. | Active |
 | **[inbound-lead-agent](inbound-lead-agent/)** | Conversational AI agent prompt suite to pre-qualify motivated sellers. | Active |
-| **[buy-box-filter](buy-box-filter/)** | Smart filter that isolates property deals matching custom buy metrics. | Active |
+| **[buy-box-filter](buy-box-filter/)** | Smart filter that isolates property deals matching custom location, zip codes, and size metrics. | Active |
+| **[deal-ranker](deal-ranker/)** | Advanced engine that calculates MAO and prioritizes deals into tiers using a 100-point buy box scoring algorithm. | Active |
 
 ---
 
