@@ -17,3 +17,9 @@ Use this tool at your own risk. Many real estate websites have Terms of Service 
 Compliance: You are solely responsible for ensuring your usage complies with the policies of the platforms you are querying and managing your billing consumption limits on Apify.
 
 No Support or Warranty: This tool is provided "as-is," completely free of charge. There is absolutely no expectation of support, training, or technical assistance with its use. I cannot provide help with personal setups, API debugging, or custom modifications. Please do not submit support requests for individual usage issues.
+
+Created for the community. Contributions and improvements are welcome via Pull Requests.
+
+This skill is provided for free with no expectation implied or otherwise of support. It is provided for informational purpopses only.
+
+Want a complete deal finding AI Agent system installed in your business for you?  Contact us at: https://go3dc.com
