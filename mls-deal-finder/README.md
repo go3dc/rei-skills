@@ -1,4 +1,4 @@
-# MLS Deal Finder API Suite (Skill #6)
+# MLS Deal Finder API Suite
 
 An official API-driven property ingestion engine that queries the Apify platform to retrieve up-to-date real estate listings directly without relying on fragile browser-level web scraping patterns.
 
