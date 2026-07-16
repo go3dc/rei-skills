@@ -6,7 +6,8 @@ A centralized library of automation tools, scripts, and AI agent frameworks for 
 
 | Skill | Description | Status |
 | :--- | :--- | :--- |
-| **[scraper-v1](scraper-v1/)** | Daily real estate listing scraper (Zillow/Redfin/Trulia/Compass). | Active |
+| **[mls-web-scraper](mls-web-scraper/)** | Daily real estate listing scraper (Zillow/Redfin/Trulia/Compass). | Active |
+| **[mls-deal-finder](mls-deal-finder/)** | API-driven real estate listing ingestion tool powered by paid Apify client data streams. | Active |
 | **[property-comper](property-comper/)** | Automated ARV and comping engine using local market data. | Active |
 | **[inbound-lead-agent](inbound-lead-agent/)** | Conversational AI agent prompt suite to pre-qualify motivated sellers. | Active |
 | **[buy-box-filter](buy-box-filter/)** | Smart filter that isolates property deals matching custom location, zip codes, and size metrics. | Active |
