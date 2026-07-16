@@ -11,8 +11,7 @@ This asset functions as an institutional-grade data ingestion replacement for th
    ```bash
    python main.py
 
-
-   # ⚠️ Important Disclaimer
+# ⚠️ Important Disclaimer
 Use this tool at your own risk. Many real estate websites have Terms of Service (ToS) that prohibit automated data extraction.
 
 Compliance: You are solely responsible for ensuring your usage complies with the policies of the platforms you are querying and managing your billing consumption limits on Apify.
