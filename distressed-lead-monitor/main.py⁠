@@ -1,0 +1,59 @@
+import os
+import logging
+import pandas as pd
+from utils.api_handler import fetch_distressed_records
+from utils.normalizer import normalize_distress_payload
+
+# Initialize file structure metrics
+os.makedirs('logs', exist_ok=True)
+logging.basicConfig(filename='logs/distress_monitor.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+def load_config():
+    if not os.path.exists('config.py'):
+        print("Config runtime file not found. Bootstrapping example configuration presets...")
+        import config_example as cfg
+        return cfg
+    import config as cfg
+    return cfg
+
+def main():
+    cfg = load_config()
+    
+    if not hasattr(cfg, 'APIFY_TOKEN') or cfg.APIFY_TOKEN == "your_paid_apify_api_token_here":
+        print("Configuration Error: Valid paid APIFY_TOKEN required inside config.py to execute queries.")
+        return
+
+    print("\n================ PUBLIC RECORDS MONITOR START ================")
+    
+    # 1. Fetch off-market distress filings across custom county strings
+    raw_data = fetch_distressed_records(
+        token=cfg.APIFY_TOKEN,
+        event_types=cfg.EVENT_TYPES,
+        states=cfg.TARGET_STATES,
+        counties=cfg.TARGET_COUNTIES,
+        max_items=cfg.MAX_ITEMS
+    )
+    
+    if not raw_data:
+        print("No public filings retrieved. Ending execution thread.")
+        return
+
+    # 2. Extract nested elements to uniform property profiles
+    print("Parsing heterogeneous legal records into pipeline formats...")
+    clean_leads = normalize_distress_payload(raw_data)
+
+    # 3. Export out to structural repository tracking paths
+    df = pd.DataFrame(clean_leads)
+    
+    # Save directly into the local execution route
+    df.to_csv('scraped_leads.csv', index=False)
+    
+    print("\n================ MUNICIPAL STREAM INTEGRATION FINALISED ================")
+    print(f"Raw County Court Records Downloaded:  {len(raw_data)}")
+    print(f"Normalized Actionable Leads Extracted: {len(df)}")
+    print(f"Data compiled to: distressed-lead-monitor/scraped_leads.csv")
+    print("========================================================================\n")
+
+if __name__ == "__main__":
+    main()
