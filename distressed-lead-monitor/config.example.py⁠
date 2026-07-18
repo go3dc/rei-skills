@@ -1,0 +1,15 @@
+# Apify Authentication Settings
+# Requires a paid Apify plan to handle the background computing credits
+APIFY_TOKEN = "your_paid_apify_api_token_here"
+
+# Targeted Event Types
+# Options: "probate", "foreclosure", "sheriff_sale", "tax_lien", "tax_sale"
+EVENT_TYPES = ["foreclosure", "probate", "tax_lien"]
+
+# Geographic Parameters
+# States must be 2-letter uppercase codes. Counties are case-insensitive.
+TARGET_STATES = ["MD", "IL", "NY"]
+TARGET_COUNTIES = ["Prince George's", "Cook", "Orleans"]
+
+# Limit parameters
+MAX_ITEMS = 500
