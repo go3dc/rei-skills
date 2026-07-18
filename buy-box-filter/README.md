@@ -1,4 +1,4 @@
-# Buy Box Soft-Filtering Engine (Skill #4)
+# Buy Box Soft-Filtering Engine
 
 An automated data-tagging agent that evaluates property leads against custom, investor-defined criteria. Unlike traditional hard-filters that delete non-conforming leads, this skill implements a **soft-filter**—keeping 100% of your data intact while flag-tagging assets for downstream pipeline optimization.
 
