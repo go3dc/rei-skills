@@ -9,14 +9,14 @@ def load_buy_box():
         return json.load(f)
 
 def get_property_leads():
-    print("\n--- Buy Box Filter Intake System ---")
-    print("1) Load automatically from scraper-v1 MLS output data sheet")
+    print("\n--- Buy Box Soft-Filter Intake System ---")
+    print("1) Load automatically from mls-web-scraper output")
     print("2) Import custom external off-market CSV file list")
     print("3) Manually transcribe single deal characteristics")
     choice = input("Select property source execution method (1-3): ").strip()
 
     if choice == '1':
-        path = '../scraper-v1/scraped_leads.csv'
+        path = '../mls-web-scraper/scraped_leads.csv'
         if not os.path.exists(path):
             path = input("File not found. Paste path to your scraped data CSV: ").strip()
         return pd.read_csv(path).to_dict(orient='records') if os.path.exists(path) else None
@@ -47,19 +47,35 @@ def main():
         print("Execution halted: Empty lead queue matrix.")
         return
 
-    qualified = []
-    for lead in leads:
-        passed, _ = matches_buy_box(lead, buy_box)
-        if passed:
-            # Safely bind missing keys to prevent pipeline execution breaks
-            if 'lot_size' not in lead:
-                lead['lot_size'] = None
-            qualified.append(lead)
+    processed_leads = []
+    passed_count = 0
+    failed_count = 0
 
-    print(f"\nFiltering complete. Identified {len(qualified)} matching targets.")
-    if qualified:
-        pd.DataFrame(qualified).to_csv('qualified_deals.csv', index=False)
-        print("Exported matching assets directly to: buy-box-filter/qualified_deals.csv")
+    for lead in leads:
+        passed, reason = matches_buy_box(lead, buy_box)
+        
+        # Soft Filter: Label instead of discarding
+        lead['in_buy_box'] = passed
+        lead['buy_box_fail_reason'] = "" if passed else reason
+        
+        # Safely bind missing keys to prevent downstream pipeline breaks
+        if 'lot_size' not in lead or pd.isna(lead.get('lot_size')):
+            lead['lot_size'] = None
+            
+        if passed:
+            passed_count += 1
+        else:
+            failed_count += 1
+            
+        processed_leads.append(lead)
+
+    print(f"\nProcessing complete. Total leads: {len(processed_leads)}")
+    print(f"✅ In Buy Box: {passed_count}")
+    print(f"❌ Out of Buy Box: {failed_count}")
+    
+    if processed_leads:
+        pd.DataFrame(processed_leads).to_csv('processed_deals.csv', index=False)
+        print("Saved all evaluated assets directly to: buy-box-filter/processed_deals.csv")
 
 if __name__ == "__main__":
     main()
