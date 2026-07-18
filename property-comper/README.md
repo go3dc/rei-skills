@@ -1,4 +1,4 @@
-# Property Comper (Skill #2)
+# Property Comper
 
 An automated valuation engine that calculates the After Repair Value (ARV) of a target property using local, historical sold data. 
 
