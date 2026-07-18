@@ -1,0 +1,36 @@
+from apify_client import ApifyClient
+import logging
+
+def fetch_distressed_records(token, event_types, states, counties, max_items):
+    """
+    Triggers the jungle_synthesizer/probate-foreclosure-leads-scraper actor
+    on the Apify platform using a programmatic client configuration.
+    """
+    client = ApifyClient(token)
+    actor_id = "jungle_synthesizer/probate-foreclosure-leads-scraper"
+    
+    # Structure the precise input payload demanded by the open-data actor
+    run_input = {
+        "eventTypes": event_types,
+        "states": states,
+        "counties": counties,
+        "maxItems": max_items,
+        "sp_intended_usage": "Lead generation for real estate investment buy box mapping"
+    }
+    
+    logging.info(f"Dispatching database request to Apify for Counties: {counties}")
+    print(f"Connecting to county open data registries for: {', '.join(counties)}...")
+    
+    try:
+        # Launch the cloud integration worker
+        run = client.actor(actor_id).call(run_input=run_input)
+        
+        # Download the complete normalized JSON dataset
+        dataset_items = list(client.dataset(run["defaultDatasetId"]).list_items().items)
+        logging.info(f"Retrieved {len(dataset_items)} legal filings records.")
+        return dataset_items
+        
+    except Exception as e:
+        logging.error(f"Critical error communicating with public records API pipeline: {e}")
+        print("API collection failed. Review logs/distress_monitor.log for traceback details.")
+        return []
