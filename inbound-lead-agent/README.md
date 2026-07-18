@@ -1,4 +1,4 @@
-# Inbound Lead Agent (Skill #3)
+# Inbound Lead Agent
 
 A conversion-focused AI sub-agent skill designed to textually pre-qualify inbound property leads. It transforms raw traffic into highly structured property lead data matching a standardized investment intake process.
 
