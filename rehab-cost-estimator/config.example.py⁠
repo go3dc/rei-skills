@@ -1,0 +1,23 @@
+# OpenAI or Multimodal Vision API Configuration
+VISION_API_KEY = "your_openai_api_key_here"
+MODEL_NAME = "gpt-4o"
+
+# Maximum number of photos to inspect per property (to optimize API token costs)
+MAX_PHOTOS_PER_LISTING = 6
+
+# Regional Cost Benchmarks (Adjust for your specific contractor market)
+COST_BENCHMARKS = {
+    # Per Square Foot Multipliers (applied if general condition is detected)
+    "cosmetic_refresh_per_sqft": 15.0,   # Paint, light fixtures, carpet
+    "medium_rehab_per_sqft": 35.0,       # Kitchen/bath refresh, flooring, paint
+    "heavy_gut_per_sqft": 65.0,          # Full tear-out, MEP, drywall, structural
+    
+    # Flat Itemized Cost Defaults
+    "full_kitchen_remodel": 12000.0,
+    "bathroom_remodel": 5000.0,
+    "flooring_replacement_per_sqft": 5.0,
+    "interior_paint_per_sqft": 3.0,
+    "roof_replacement": 8500.0,
+    "hvac_replacement": 6000.0,
+    "exterior_siding_paint": 4000.0
+}
