@@ -1,0 +1,11 @@
+# Rehab Cost Estimator
+
+An AI-driven computer vision utility that inspects real estate listing photos to evaluate interior/exterior condition, detect required repairs, and estimate renovation costs based on regional benchmarks.
+
+## Pipeline Integration
+This skill bridges the gap between raw web scraping and financial deal ranking by dynamically filling in the `repairs` metric:
+1. Copy `config.example.py` to `config.py` and supply a valid OpenAI API key with Vision model access.
+2. Customize regional cost benchmarks inside `config.py` (square-foot multipliers, kitchen/bath overhaul costs, roof replacement averages).
+3. Execute the estimator script:
+   ```bash
+   python main.py
